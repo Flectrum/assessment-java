@@ -78,7 +78,7 @@ public class QuestionDAO {
             psQuestion.setString(3, question.getContent());
             psQuestion.setInt(4, question.getId());
             psQuestion.executeUpdate();
-            for(Response response: question.getResponse()){
+            for (Response response : question.getResponse()) {
                 psResponse.setBoolean(1, response.isCorrect());
                 psResponse.setString(2, response.getText());
                 psResponse.setInt(3, question.getId());
