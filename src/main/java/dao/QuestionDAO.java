@@ -1,3 +1,8 @@
+package dao;
+
+import model.Question;
+import model.Response;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
