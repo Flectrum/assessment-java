@@ -9,6 +9,10 @@ public class Question {
     private int difficultyRank;
     private List <Response> response;
 
+    public Question() {
+
+    }
+
     public int getId() {
         return id;
     }
@@ -49,11 +53,6 @@ public class Question {
         this.response = response;
     }
 
-    public Question(int difficultyRank,String topic, String content) {
-        this.content = content;
-        this.topic = topic;
-        this.difficultyRank = difficultyRank;
-    }
 
     public Question(int id, int difficultyRank,String topic,String content) {
         this.id = id;
@@ -70,10 +69,4 @@ public class Question {
         this.response = response;
     }
 
-    public Question(int difficultyRank, String topic,  String content, List<Response> response) {
-        this.content = content;
-        this.topic = topic;
-        this.difficultyRank = difficultyRank;
-        this.response = response;
-    }
 }

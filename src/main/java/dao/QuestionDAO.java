@@ -7,17 +7,17 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class QuestionDAO {
+public class QuestionDAO implements Dao {
 
     static final String DRIVER = "com.mysql.cj.jdbc.Driver";
     static final String DB_URL = "jdbc:mysql://localhost:3306/quiz_application";
-    static final String USER = "user";
-    static final String PASS = "password";
+    static final String USER = "root";
+    static final String PASS = "runzone88";
 
     public QuestionDAO() {
     }
 
-    protected Connection getConnection() {
+    public Connection getConnection() {
         Connection connection = null;
         try {
             Class.forName(DRIVER);
@@ -28,7 +28,8 @@ public class QuestionDAO {
         return connection;
     }
 
-    public void saveQuestion(Question question) {
+    @Override
+    public void saveQuestion(Question question) throws SQLException {
         int id;
         try (Connection connection = getConnection();
              PreparedStatement psQuestion = connection.prepareStatement(
@@ -56,21 +57,25 @@ public class QuestionDAO {
                 psResponse.setString(3, response.getText());
                 psResponse.executeUpdate();
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
 
-    public void deleteQuestion(int id) throws SQLException {
+    @Override
+    public boolean deleteQuestion(int id){
+        boolean result = true;
         try (Connection connection = getConnection();
              PreparedStatement statement = connection.prepareStatement(
                      "DELETE FROM question WHERE question_id = ?;"
              )) {
             statement.setInt(1, id);
             statement.executeUpdate();
+        }catch (SQLException e){
+            result = false;
         }
+        return result;
     }
 
+    @Override
     public void updateQuestion(Question question) throws SQLException {
         try (Connection connection = getConnection();
              PreparedStatement psQuestion = connection.prepareStatement(
@@ -92,7 +97,8 @@ public class QuestionDAO {
         }
     }
 
-    public Question searchQuestionByTopic(String topicToSearch) {
+    @Override
+    public Question searchQuestionByTopic(String topicToSearch) throws SQLException {
         List<Response> responseList = new ArrayList<>();
         Question question = null;
         Response response;
@@ -120,8 +126,6 @@ public class QuestionDAO {
             }
             assert question != null;
             question.setResponse(responseList);
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
         return question;
     }
