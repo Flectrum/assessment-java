@@ -12,7 +12,7 @@ public class QuestionDAO implements Dao {
     static final String DRIVER = "com.mysql.cj.jdbc.Driver";
     static final String DB_URL = "jdbc:mysql://localhost:3306/quiz_application";
     static final String USER = "root";
-    static final String PASS = "runzone88";
+    static final String PASS = "password";
 
     public QuestionDAO() {
     }
